@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reducers from './reducers';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+const createStoreWithMiddleware = applyMiddleware()(createStore);
+
+class App extends Component {
+	render() {
+		return(
+			<div>
+				<h3>A simple React-Redux boilerplate, created with create-react-app.</h3>
+			</div>
+		)
+	}
+}
+
+ReactDOM.render(
+	<Provider store={createStoreWithMiddleware(reducers)}>
+		<App />
+	</Provider>
+	, document.getElementById('root'));
